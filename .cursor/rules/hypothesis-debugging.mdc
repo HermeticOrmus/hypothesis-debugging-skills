@@ -1,0 +1,44 @@
+---
+description: Hypothesis-driven debugging protocol — reproduce, isolate, hypothesize, test, fix, document. Apply when debugging a failure. Find the root cause, not a workaround.
+alwaysApply: false
+---
+
+# Hypothesis debugging
+
+A six-phase protocol for debugging a failure. Do not write a fix until you have a ranked hypothesis table and a confirmed root cause.
+
+**Tradeoff**: bias toward finding the cause over shipping a fast patch. For an obvious one-line typo, use judgment.
+
+## 1. Reproduce
+
+Make the failure happen on demand. Capture the exact error and stack trace, the steps, and expected versus actual behavior. Note whether it is consistent or intermittent; intermittent points at state, timing, or environment.
+
+## 2. Isolate
+
+Narrow the scope. Check recent commits (`git log --oneline -10`) and diffs, then reduce to the smallest input or call that still fails. Turn "the app is broken" into "this input to this function fails."
+
+## 3. Hypothesize
+
+Write a ranked hypothesis table BEFORE touching the code.
+
+| # | Hypothesis | Likelihood | How to test |
+|---|-----------|------------|-------------|
+| 1 | Most likely cause, stated specifically | High | A cheap test that gives a yes/no answer |
+| 2 | Second possibility | Medium | A specific test |
+| 3 | Less likely cause | Low | A specific test |
+
+Each row names a concrete cause and has a test that can actually run.
+
+## 4. Test
+
+Work the table top to bottom. Run each test, record the result. A confirmed hypothesis is the root cause; a refuted one is removed. Do not skip ahead to a fix on a hunch.
+
+## 5. Fix
+
+With the cause confirmed: the smallest change that addresses the cause, traced for side effects, verified against the Phase 1 reproduction, plus a regression test that fails on the old code.
+
+Root cause, not workaround. Reject: try/catch swallowing the failure, defensive checks masking a contract violation, renamed symptom variables, mocked broken dependencies, asserting the bug away. A workaround that passes tests hides the bug and propagates it.
+
+## 6. Document
+
+Record the root cause, the fix and why it addresses the cause, and the prevention (the regression test, the bug category, how to catch it faster next time).
