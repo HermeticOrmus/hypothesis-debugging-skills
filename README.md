@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://ormus.solutions/mascot/pixellab_liquid_to_eye.gif" alt="Hypothesis Debugging Skills" width="128" style="image-rendering: pixelated;" />
+  <img src="https://ormus.solutions/mascot/pixellab_liquid_to_spiral.gif" alt="Hypothesis Debugging Skills" width="128" style="image-rendering: pixelated;" />
 </p>
 
 <h1 align="center">Hypothesis Debugging Skills</h1>
